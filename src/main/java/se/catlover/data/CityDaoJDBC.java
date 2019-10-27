@@ -11,7 +11,7 @@ import java.util.List;
 
 import se.catlover.models.City;
 
-//TODO: Make separate methods to print out the data
+//TODO: Make separate methods to print out the data and for other stuff too
 
 public class CityDaoJDBC implements CityDao {
 
@@ -80,16 +80,12 @@ public class CityDaoJDBC implements CityDao {
     	return city;  	
     	
     }
-    
 
-    public void statementTest() throws SQLException {
-    	 myPreppedStmt.setString(1, "David");
-    }
 
      
     @Override
     public List<City> findByCode(String code) {
-
+		ArrayList<String> citiesList = new ArrayList<String>();
         City city = new City();
       	try {
 		    myPreppedStmt = connection.prepareStatement("SELECT * from CITY where CountryCode = ?");      	
@@ -98,7 +94,7 @@ public class CityDaoJDBC implements CityDao {
 		    ResultSet rs = myPreppedStmt.executeQuery();
 		    
 		    //TODO: Make proper columns and rows
-	    	while (rs.next()){	
+	    	while (rs.next()){
 		    	city.setiD(rs.getInt("ID"));
 		    	city.setName(rs.getString("name"));
 		    	city.setCountryCode(rs.getString("CountryCode"));
@@ -111,7 +107,15 @@ public class CityDaoJDBC implements CityDao {
 		        	System.out.println(list.getPopulation());
 		        }
 	    	}
-    	} 
+	 // 	Why not do it this way instead, using an string array??
+	//    	while (rs.next()){
+	//			citiesList.add(rs.getString("ID"));
+	//			citiesList.add(rs.getString("name"));
+	//			citiesList.add(rs.getString("CountryCode"));
+	//			citiesList.add(rs.getString("District"));
+	//			citiesList.add(rs.getString("Population"));
+	//		}
+    	}
 
 	    catch (SQLException e) {
 	    	
