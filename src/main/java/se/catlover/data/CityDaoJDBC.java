@@ -273,19 +273,29 @@ public class CityDaoJDBC implements CityDao {
     }
     
 	public void closeConnection() {
-  
+		
         try{
-            if(myStmt!= null)
-                myStmt.close();
+        	if(myResultset != null) {
+        		myResultset.close(); 		
+        	}
+        	if(myStmt != null) {
+        		myStmt.close();; 		
+        	}
+        	if(myPreppedStmt != null) {
+        		myPreppedStmt.close(); 		
+        	}
+        	if(myConnectionDemo != null) {
+        		myConnectionDemo.close(); 		
+        	}
+        	if(connection != null) {
+        		connection.close(); 		
+        	}
+        	
+        	
         }
         catch(SQLException se2){
         }
-        try{
-            if(connection!=null)
-                connection.close();
-        }catch(SQLException se){
-            se.printStackTrace();
-        }
+
 		   System.out.println("Program has finished. Exiting");
 		   
 	}
